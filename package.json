@@ -21,6 +21,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "konva": "^8.1.1",
+    "prettier": "2.3.2",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
