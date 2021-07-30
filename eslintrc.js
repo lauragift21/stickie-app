@@ -9,7 +9,5 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['vue', 'prettier'],
-  rules: {
-    'vue/no-multiple-template-root': 'off',
-  },
+  rules: {},
 };

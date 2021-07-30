@@ -6,13 +6,13 @@
 
 <script>
 export default {
- props: {
-  item: {
-   type: Array,
-   required: true,
-  },
- },
-};
+  props: {
+    item: {
+      type: Object,
+      required: true,
+    }
+  }
+}
 </script>
 
 <style scoped>
