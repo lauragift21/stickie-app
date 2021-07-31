@@ -1,7 +1,7 @@
 <template>
-  <section class="grid grid-cols-6">
+  <section class="container mx-auto grid grid-cols-5">
     <div v-for="(sticky, index) in stickies" :key="index">
-     <div class="w-60 h-60 mx-4 my-2 rounded shadow-xl" :class="[sticky.backgroundColor, sticky.color]">
+     <div class="w-60 h-60 mx-4 rounded shadow-xl" :class="[sticky.backgroundColor, sticky.color]">
       <p class="text-center text-3xl px-6 py-16">{{ sticky.text }}</p>
       <!-- add delete icon to card -->
      </div>
