@@ -1,17 +1,23 @@
 <template>
- <div>
-  <!-- {{ item }} -->
- </div>
+  <section class="grid grid-cols-6">
+    <div v-for="(sticky, index) in stickies" :key="index">
+     <div class="w-60 h-60 mx-4 my-2 rounded shadow-xl" :class="[sticky.backgroundColor, sticky.color]">
+      <p class="text-center text-3xl px-6 py-16">{{ sticky.text }}</p>
+      <!-- add delete icon to card -->
+     </div>
+    </div>
+  </section>
 </template>
 
 <script>
 export default {
   props: {
-    item: {
-      type: Object,
+    stickies: {
+      type: Array,
       required: true,
-    }
-  }
+      default: () => [],
+    },
+  },
 }
 </script>
 

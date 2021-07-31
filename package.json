@@ -10,9 +10,11 @@
   "dependencies": {
     "autoprefixer": "^9.8.6",
     "core-js": "^3.6.5",
+    "konva": "^8.1.1",
     "postcss": "^7.0.36",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-konva": "^2.1.7"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -20,7 +22,7 @@
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
-    "konva": "^8.1.1",
+    "eslint-plugin-vue": "^7.15.0",
     "prettier": "2.3.2",
     "vue-template-compiler": "^2.6.11"
   },
