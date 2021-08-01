@@ -1,6 +1,5 @@
 <template>
-  <div class="container h-screen mt-6 mx-4">
-    <v-stage
+   <v-stage
       ref="stage"
       :config="configKonva"
       @click="detectClick"
@@ -42,31 +41,9 @@
         </v-group>
       </v-layer>
     </v-stage>
-    <button
-      title="Add StickyCard"
-      class="
-        absolute
-        top-0
-        right-0
-        m-6
-        w-20
-        h-20
-        rounded-full
-        shadow-xl
-        text-center text-4xl text-white
-        bg-blue-500
-        hover:bg-blue-700
-      "
-      @click="addSticky"
-    >
-      +
-    </button>
-    <Guide />
-  </div>
 </template>
 
 <script>
-import Guide from './Guide'
 import { randomColorGenerator } from '../utils'
 const width = window.innerWidth
 const height = window.innerHeight - 300
@@ -74,9 +51,6 @@ let layer
 let stage
 
 export default {
-  components: {
-    Guide,
-  },
   data() {
     return {
       stickies: [],
@@ -205,3 +179,7 @@ export default {
   },
 }
 </script>
+
+<style>
+
+</style>

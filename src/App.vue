@@ -1,13 +1,13 @@
 <template>
- <board-layout />
+ <index />
 </template>
 
 <script>
-import BoardLayout from "./components/BoardLayout.vue";
+import Index from "./components/Index.vue";
 
 export default {
  components: {
-  BoardLayout,
+  Index,
  },
 };
 </script>
