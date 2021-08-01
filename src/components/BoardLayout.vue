@@ -4,7 +4,6 @@
       ref="stage"
       :config="configKonva"
       @dragstart="handleDragStart"
-      @dragmove="handleDragMove"
       @dragend="handleDragEnd"
     >
       <v-layer ref="layer">
@@ -12,7 +11,8 @@
           :config="{ draggable: true }"
           v-for="(item, index) in stickies"
           :key="index"
-          @click="deleteSticky"
+          ref="group"
+          @dblclick="deleteSticky"
         >
           <v-rect
             :config="{
@@ -32,6 +32,7 @@
             :config="{
               x: item.x,
               y: item.y,
+              id: item.id,
               width: 300,
               height: 300,
               text: item.text,
@@ -79,13 +80,9 @@ export default {
         width: width,
         height: height,
       },
-      lastPointerPosition: {
-        x: 0,
-        y: 0,
-      },
     }
   },
-  async mounted() {
+  mounted() {
     this.stickies = JSON.parse(localStorage.getItem('stickies'))
     stage = this.$refs.stage.getNode()
     layer = this.$refs.layer.getNode()
@@ -103,7 +100,7 @@ export default {
       )
 
       this.stickies.push({
-        id: Math.floor(Math.random().toFixed(2) * 100),
+        id: Math.floor(Math.random().toFixed(2) * 100).toString(),
         text: '',
         x: x,
         y: y,
@@ -112,12 +109,17 @@ export default {
       localStorage.setItem('stickies', JSON.stringify(this.stickies))
     },
     deleteSticky(evt) {
-      console.log(evt)
-      // this.stickies.splice(index, 1)
-      // localStorage.setItem('stickies', JSON.stringify(this.stickies))
+      this.stickies.map((item) => {
+        if (item.id === evt.target.attrs.id) {
+          this.stickies.splice(this.stickies.indexOf(item), 1)
+          this.stickies.push(item)
+          // this.stickies.splice(this.stickies.indexOf(item), 1)
+          // localStorage.setItem('stickies', JSON.stringify(this.stickies))
+        }
+      })
     },
-    editSticky(e) {
-      const textNode = e.target
+    editSticky(evt) {
+      const textNode = evt.target
       textNode.hide()
       layer.draw()
 
@@ -151,59 +153,39 @@ export default {
       // and set cursor to the end:
       textArea.setSelectionRange(textArea.value.length, textArea.value.length)
       // now we can listen for changes:
-      textArea.addEventListener('keypress', (e) => {
+      textArea.addEventListener('keypress', (evt) => {
         // hide on enter and escape
-        if (e.keyCode === 13) {
-          textNode.text(e.target.value)
-          // TODO: Update the text in the sticky
+        if (evt.keyCode === 13) {
+          textNode.text(evt.target.value)
           textNode.show()
           layer.draw()
           textArea.remove()
+          const newText = textNode.attrs.text
+          this.stickies.map((item) => {
+            if (item.id === textNode.attrs.id) {
+              item.text = newText
+            }
+          })
+          localStorage.setItem('stickies', JSON.stringify(this.stickies))
         }
       })
-      // function handleOutsideClick(e) {
-      //   if (e.target !== textArea) {
-      //     textNode.text(e.target.value)
-      //     textNode.show()
-      //     layer.draw()
-      //     textArea.remove()
+    },
+    handleDragStart(evt) {
+      // this.stickies.map((item) => {
+      //   if (item.id === evt.target.children[1].attrs.id) {
+      //     this.dragItemId = item.id
+      //    console.log(this.dragItemId)
       //   }
-      // }
-      // setTimeout(() => {
-      //   window.addEventListener('click', handleOutsideClick)
       // })
+      this.dragItemId = evt.target.children[1].attrs.id
+      const item = this.stickies.find((item) => item.id === this.dragItemId)
+      console.log(item)
+      const index = this.stickies.indexOf(item)
+      console.log(index)
     },
-    handleDragStart(e) {
-      console.log('START:', e)
-      // make stickie stackable
-      // this.dragItemId = e.target._dragItemId;
-      // console.log(e, this.dragItemId)
-      // move current element to the top:
-      // const item = this.list.find(i => i.id === this.dragItemId);
-      // const index = this.list.indexOf(item);
-      // this.list.splice(index, 1);
-      // this.list.push(item);
-    },
-    handleDragMove(e) {
-      // this.dragItemId = e.target._id
-      console.log(e)
-      // const getCurrentXPosition = e.target.attrs.x
-      // const getCurrentYPosition = e.target.attrs.y
-      // console.log(getCurrentXPosition)
-      // console.log(getCurrentYPosition)
-
-      // use eventlistener to get the current selected item x and y position of the draggable
-      // and save it to the local storage
-      // const dragFunction = e;
-    },
-    handleDragEnd(e) {
-      const { clientX: x, clientY: y } = e.evt
-      const index = e.target.index
-      console.log(e)
-      console.log(x, y)
-      ;(this.stickies[index].x = x), (this.stickies[index].y = y)
-      console.log(this.stickies)
-      localStorage.setItem('stickies', JSON.stringify(this.stickies))
+    // eslint-disable-next-line
+    handleDragEnd(evt) {
+      // this.dragItemId = null
     },
   },
 }
