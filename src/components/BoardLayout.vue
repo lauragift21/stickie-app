@@ -3,6 +3,7 @@
     <v-stage
       ref="stage"
       :config="configKonva"
+      @click="detectClick"
       @dragstart="handleDragStart"
       @dragend="handleDragEnd"
     >
@@ -12,7 +13,6 @@
           v-for="(item, index) in stickies"
           :key="index"
           ref="group"
-          @dblclick="deleteSticky"
         >
           <v-rect
             :config="{
@@ -50,8 +50,8 @@
         top-0
         right-0
         m-6
-        w-20
-        h-20
+        w-16
+        h-16
         rounded-full
         shadow-xl
         text-center text-5xl text-white
@@ -94,6 +94,12 @@ export default {
     layer = this.$refs.layer.getNode()
   },
   methods: {
+    detectClick(e) {
+      const index = e.target.parent.children[1].attrs.id
+      if (index) {
+        this.deleteSticky(index)
+      }
+    },
     addSticky() {
       // don't let the x and y axis extend over the set width and height of the screen
       const x = Math.min(
@@ -114,13 +120,16 @@ export default {
       })
       localStorage.setItem('stickies', JSON.stringify(this.stickies))
     },
-    deleteSticky(evt) {
-      this.stickies.map((item) => {
-        if (item.id === evt.target.attrs.id) {
-          this.stickies.splice(this.stickies.indexOf(item), 1)
-          this.stickies.push(item)
-          // this.stickies.splice(this.stickies.indexOf(item), 1)
-          // localStorage.setItem('stickies', JSON.stringify(this.stickies))
+    deleteSticky(index) {
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' || e.key === 'Delete') {
+          console.log('event trigged')
+          this.stickies.map((item) => {
+            if (item.id === index) {
+              this.stickies.splice(this.stickies.indexOf(item), 1)
+              localStorage.setItem('stickies', JSON.stringify(this.stickies))
+            }
+          })
         }
       })
     },
@@ -161,7 +170,7 @@ export default {
       // now we can listen for changes:
       textArea.addEventListener('keypress', (evt) => {
         // hide on enter and escape
-        if (evt.keyCode === 13) {
+        if (evt.key === 'Enter') {
           textNode.text(evt.target.value)
           textNode.show()
           layer.draw()
@@ -184,10 +193,10 @@ export default {
       //   }
       // })
       this.dragItemId = evt.target.children[1].attrs.id
-      const item = this.stickies.find((item) => item.id === this.dragItemId)
-      console.log(item)
-      const index = this.stickies.indexOf(item)
-      console.log(index)
+      // const item = this.stickies.find((item) => item.id === this.dragItemId)
+      // console.log(item)
+      // const index = this.stickies.indexOf(item)
+      // console.log(index)
     },
     // eslint-disable-next-line
     handleDragEnd(evt) {
