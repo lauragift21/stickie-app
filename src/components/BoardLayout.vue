@@ -1,5 +1,5 @@
 <template>
-  <div class="container my-6 mx-4">
+  <div class="container h-screen mt-6 mx-4">
     <v-stage
       ref="stage"
       :config="configKonva"
@@ -62,16 +62,22 @@
     >
       +
     </button>
+    <Guide />
   </div>
 </template>
 
 <script>
+import Guide from './Guide'
 import { randomColorGenerator } from '../utils'
 const width = window.innerWidth
-const height = window.innerHeight
+const height = window.innerHeight - 300
 let layer
 let stage
+
 export default {
+  components: {
+    Guide,
+  },
   data() {
     return {
       stickies: [],
@@ -190,6 +196,3 @@ export default {
   },
 }
 </script>
-
-
-<style></style>
