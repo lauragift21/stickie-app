@@ -12,7 +12,6 @@
           :config="{ draggable: true }"
           v-for="(item, index) in stickies"
           :key="index"
-          ref="group"
         >
           <v-rect
             :config="{
@@ -50,11 +49,11 @@
         top-0
         right-0
         m-6
-        w-16
-        h-16
+        w-20
+        h-20
         rounded-full
         shadow-xl
-        text-center text-5xl text-white
+        text-center text-4xl text-white
         bg-blue-500
         hover:bg-blue-700
       "
@@ -122,7 +121,7 @@ export default {
     },
     deleteSticky(index) {
       window.addEventListener('keydown', (e) => {
-        if (e.key === 'Backspace' || e.key === 'Delete') {
+        if (e.key === 'Delete') {
           console.log('event trigged')
           this.stickies.map((item) => {
             if (item.id === index) {
@@ -147,6 +146,7 @@ export default {
         y: textPosition.y + stageBox.x,
       }
       // now we can create textarea:
+      // TODO: Move this out to a utils file
       const textArea = document.createElement('textarea')
       textArea.style.position = 'absolute'
       textArea.style.top = textAreaPosition.y + 'px'
