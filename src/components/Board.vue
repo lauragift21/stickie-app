@@ -1,21 +1,15 @@
 <template>
   <section>
-    <v-stage
-      ref="stage"
-      :config="configKonva"
-      @click="detectClick"
-      @dragend="handleDragEnd"
-    >
+    <v-stage ref="stage" :config="configKonva" @click="detectClick">
       <v-layer ref="layer">
         <v-group
-          :config="{ draggable: true }"
+          :config="{ draggable: true, x: item.x, y: item.y, stickyId: item.id }"
           v-for="(item, index) in stickies"
           :key="index"
+          @dragend="handleDragEnd"
         >
           <v-rect
             :config="{
-              x: item.x,
-              y: item.y,
               width: 300,
               height: 300,
               fill: item.fill,
@@ -28,8 +22,6 @@
             ref="text"
             @dblclick="editSticky"
             :config="{
-              x: item.x,
-              y: item.y,
               id: item.id,
               width: 300,
               height: 300,
@@ -86,6 +78,14 @@ export default {
     layer = this.$refs.layer.getNode()
     this.stickies = JSON.parse(localStorage.getItem('stickies')) || []
   },
+  watch: {
+    stickies: {
+      deep: true,
+      handler(value) {
+        localStorage.setItem('stickies', JSON.stringify(value))
+      },
+    },
+  },
   methods: {
     detectClick(evt) {
       const stickyId = evt.target.parent.children[1].attrs.id
@@ -105,18 +105,12 @@ export default {
         y: y,
         fill: randomColorGenerator(),
       })
-      localStorage.setItem('stickies', JSON.stringify(this.stickies))
     },
     deleteSticky(stickyId) {
       window.addEventListener('keydown', (evt) => {
         if (evt.key === 'Delete') {
           console.log('event trigged')
-          this.stickies.map((item) => {
-            if (item.id === stickyId) {
-              this.stickies.splice(this.stickies.indexOf(item), 1)
-              localStorage.setItem('stickies', JSON.stringify(this.stickies))
-            }
-          })
+          this.stickies.splice(this.stickies.findIndex(item => item.id === stickyId), 1)
         }
       })
     },
@@ -125,13 +119,13 @@ export default {
       textNode.hide()
       layer.draw()
 
-      const textPosition = textNode.getAbsolutePosition()
+      const textPosition = textNode.getParent().getAbsolutePosition()
       // then lets find position of stage container on the page:
       const stageBox = stage.container().getBoundingClientRect()
       // now we can calculate position of textarea:
       const textAreaPosition = {
-        x: textPosition.x + stageBox.y,
-        y: textPosition.y + stageBox.x,
+        x: textPosition.x + stageBox.x,
+        y: textPosition.y + stageBox.y,
       }
       // now we can create textarea:
       // TODO: Move this out to a utils file
@@ -144,8 +138,8 @@ export default {
       textArea.style.fontSize = '40px'
       textArea.style.border = '1px solid black'
       textArea.style.padding = '30px'
-      textArea.style.marginLeft = '-8px'
-      textArea.style.marginTop = '7px'
+      // textArea.style.marginLeft = '-8px'
+      // textArea.style.marginTop = '23px'
       textArea.style.zIndex = '9999'
       textArea.style.opacity = '.4'
       textArea.value = textNode.text()
@@ -164,29 +158,27 @@ export default {
           layer.draw()
           textArea.remove()
           const newText = textNode.attrs.text
-          this.stickies.map((item) => {
+          this.stickies.forEach((item) => {
             if (item.id === textNode.attrs.id) {
               item.text = newText
             }
           })
-          localStorage.setItem('stickies', JSON.stringify(this.stickies))
         }
       })
     },
-    handleDragEnd(evt) {
-      this.dragItemId = evt.target.children[1].attrs.id
-      const item = this.stickies.find((i) => i.id === this.dragItemId)
-      const newX = evt.target.x()
-      const newY = evt.target.y()
-      // dont let axis exceed screen size and dont let it go below 0
-      if (item.x < width) {
-        item.x = item.x + newX
-      }
-
-      if (item.y < height) {
-        item.y = item.y + newY
-      }
-      localStorage.setItem('stickies', JSON.stringify(this.stickies))
+    handleDragEnd() {
+      this.stickies = layer.getChildren().map(({ attrs: item }) => {
+        const currentSticky = this.stickies.find(
+          (sticky) => sticky.id === item.stickyId
+        )
+        return {
+          id: item.stickyId,
+          text: currentSticky.text,
+          x: item.x,
+          y: item.y,
+          fill: currentSticky.fill,
+        }
+      })
     },
   },
 }

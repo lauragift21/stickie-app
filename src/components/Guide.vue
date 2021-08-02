@@ -2,7 +2,7 @@
   <div
     class="
       w-2/6
-      h-60
+      h-64
       mx-2
       pt-2
       shadow-2xl
