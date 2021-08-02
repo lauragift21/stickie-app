@@ -8,7 +8,7 @@ A scrum board (inspiration from Miro) to work with stickies.
 
 ## Demo
 
-[Demo](/link)
+[Demo](https://stickie-app.netlify.app/)
 ## Features
 - [x]  User should be able to create a new sticky (With text and color as prop)
 - [x]  User should be able to move sticky anywhere on the board
