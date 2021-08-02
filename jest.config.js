@@ -13,4 +13,6 @@ module.exports = {
     '^.+\\.vue$': '<rootDir>/node_modules/vue-jest',
     '^.+\\.js$': '<rootDir>/node_modules/babel-jest',
   },
+  coverageDirectory: './coverage',
+  coverageReporters: ['json', 'lcov', 'text', 'clover'],
 }
