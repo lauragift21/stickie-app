@@ -14,9 +14,11 @@ A scrum board (inspiration from Miro) to work with stickies.
 - [x]  User should be able to move sticky anywhere on the board
 - [x]  User should be able to refresh the sticky page and it keeps it original state
 - [x]  User should be able to edit the text on a sticky
-- [ ]  User should be able to delete a sticky
+- [x]  User should be able to delete a sticky
 - [ ]  User should be able to stack sticky on top of each other
-- [ ]  User should be able to maintain position when moved
+
+## Improvements
+- [ ]  User should be able to maintain sticky position when page is refreshed
 ## Tech Stack
 
 Vue, Vue Konva, TailwindCSS, Vue Testing Library

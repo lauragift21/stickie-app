@@ -1,7 +1,7 @@
 <template>
   <div class="container h-screen mt-6 mx-4">
-    <board />
-    <guide />
+    <Board />
+    <Guide />
   </div>
 </template>
 
