@@ -83,15 +83,15 @@ export default {
     }
   },
   mounted() {
-    this.stickies = JSON.parse(localStorage.getItem('stickies'))
     stage = this.$refs.stage.getNode()
     layer = this.$refs.layer.getNode()
+    this.stickies = JSON.parse(localStorage.getItem('stickies')) || []
   },
   methods: {
     detectClick(e) {
-      const index = e.target.parent.children[1].attrs.id
-      if (index) {
-        this.deleteSticky(index)
+      const stickyId = e.target.parent.children[1].attrs.id
+      if (stickyId) {
+        this.deleteSticky(stickyId)
       }
     },
     addSticky() {
@@ -114,12 +114,12 @@ export default {
       })
       localStorage.setItem('stickies', JSON.stringify(this.stickies))
     },
-    deleteSticky(index) {
+    deleteSticky(stickyId) {
       window.addEventListener('keydown', (e) => {
         if (e.key === 'Delete') {
           console.log('event trigged')
           this.stickies.map((item) => {
-            if (item.id === index) {
+            if (item.id === stickyId) {
               this.stickies.splice(this.stickies.indexOf(item), 1)
               localStorage.setItem('stickies', JSON.stringify(this.stickies))
             }
