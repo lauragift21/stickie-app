@@ -17,7 +17,7 @@ A scrum board (inspiration from Miro) to work with stickies.
 - [x]  User should be able to refresh the sticky page and it keeps it original state
 - [x]  User should be able to edit the text on a sticky
 - [x]  User should be able to delete a sticky
-- [ ]  User should be able to stack sticky on top of each other
+- [x]  User should be able to stack sticky on top of each other
 
 ## Improvements
 - [ ]  User should be able to maintain sticky position when page is refreshed
