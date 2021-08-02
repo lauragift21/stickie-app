@@ -4,7 +4,6 @@
       ref="stage"
       :config="configKonva"
       @click="detectClick"
-      @dragstart="handleDragStart"
       @dragend="handleDragEnd"
     >
       <v-layer ref="layer">
@@ -95,7 +94,7 @@ export default {
       }
     },
     addSticky() {
-      // don't let the x and y axis extend over the set width and height of the screen
+      // stack stickies with a margin of 10
       const x = 800 + this.stickies.length * 10
       const y = 200 + this.stickies.length * 10
 
@@ -174,20 +173,20 @@ export default {
         }
       })
     },
-    // eslint-disable-next-line
-    handleDragStart(evt) {
-      this.dragItemId = null
-    },
     handleDragEnd(evt) {
       this.dragItemId = evt.target.children[1].attrs.id
       const item = this.stickies.find((i) => i.id === this.dragItemId)
-      // const newX = evt.target.x()
-      // const newY = evt.target.y()
-      console.log(item.x, item.y)
-      // console.log(`dragging...: ${newX}, ${newY}`)
-      // item.x = newX
-      // item.y = newY
-      // localStorage.setItem('stickies', JSON.stringify(this.stickies))
+      const newX = evt.target.x()
+      const newY = evt.target.y()
+      // dont let axis exceed screen size and dont let it go below 0
+      if (item.x < width) {
+        item.x = item.x + newX
+      }
+
+      if (item.y < height) {
+        item.y = item.y + newY
+      }
+      localStorage.setItem('stickies', JSON.stringify(this.stickies))
     },
   },
 }
