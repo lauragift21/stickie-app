@@ -1,10 +1,9 @@
-import { render, screen } from '@testing-library/vue'
-import Board from '../../src/components/Board'
-jest.mock('../../src/components/Board')
+import { shallowMount, mount } from '@vue/test-utils'
+import Index from '../../src/components/Index'
 
-describe('Board Component', () => {
-   it('should render Board page', () => {
-     render(Board)
-     expect(Board).toMatchSnapshot()
-   })
+describe('Guide component', () => {
+  it('displays a text in component', () => {
+    const wrapper = mount(Index)
+    wrapper.find('button').trigger('click')
+  })
 })

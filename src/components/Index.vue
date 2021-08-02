@@ -1,5 +1,5 @@
 <template>
-  <div class="container h-screen mt-6 mx-4">
+  <div class="container mx-4">
     <Board />
     <Guide />
   </div>

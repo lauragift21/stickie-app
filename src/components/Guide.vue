@@ -4,12 +4,14 @@
       w-2/6
       h-64
       mx-2
+      mb-2
       pt-2
       shadow-2xl
       border border-1
       bg-blue-800
       rounded-xl
       text-white
+      text-sm
       absolute
       bottom-0
       left-0

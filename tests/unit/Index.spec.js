@@ -1,10 +1,9 @@
-import { render, screen } from '@testing-library/vue'
+import { shallowMount, mount } from '@vue/test-utils'
 import Index from '../../src/components/Index'
-jest.mock('../../src/components/Index')
 
-describe('Index', () => {
-  it('should render Index page', () => {
-    render(Index)
-    expect(Index).toMatchSnapshot()
+describe('Guide component', () => {
+  it('displays a text in component', () => {
+    const wrapper = mount(Index)
+    wrapper.find('button').trigger('click')
   })
 })

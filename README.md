@@ -14,7 +14,7 @@ A scrum board (inspiration from Miro) to work with stickies.
 - [x]  User should be able to stack sticky on top of each other
 
 ## Improvements
-- [ ]  User should be able to maintain sticky position when page is refreshed
+- [x]  User should be able to maintain sticky position when page is refreshed
 ## Tech Stack
 
 Vue, Vue Konva, TailwindCSS, Vue Testing Library
