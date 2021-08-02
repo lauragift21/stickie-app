@@ -9858,7 +9858,6 @@ Object {
             "detectClick": [Function],
             "editSticky": [Function],
             "handleDragEnd": [Function],
-            "handleDragStart": [Function],
           },
           "_self": [Circular],
           "_staticTrees": null,
@@ -10796,7 +10795,6 @@ Object {
           "detectClick": [Function],
           "editSticky": [Function],
           "handleDragEnd": [Function],
-          "handleDragStart": [Function],
         },
       ],
     ],
@@ -10813,7 +10811,6 @@ Object {
     "detectClick": [MockFunction],
     "editSticky": [MockFunction],
     "handleDragEnd": [MockFunction],
-    "handleDragStart": [MockFunction],
   },
   "mounted": [MockFunction] {
     "calls": Array [

@@ -13,7 +13,6 @@ Object {
         "detectClick": [MockFunction],
         "editSticky": [MockFunction],
         "handleDragEnd": [MockFunction],
-        "handleDragStart": [MockFunction],
       },
       "mounted": [MockFunction],
       "render": [MockFunction],
