@@ -55,7 +55,7 @@
         shadow-xl
         text-center text-4xl text-white
         bg-blue-500
-        hover:bg-blue-700
+        hover:bg-blue-800
       "
       @click="addSticky"
     >
@@ -88,22 +88,16 @@ export default {
     this.stickies = JSON.parse(localStorage.getItem('stickies')) || []
   },
   methods: {
-    detectClick(e) {
-      const stickyId = e.target.parent.children[1].attrs.id
+    detectClick(evt) {
+      const stickyId = evt.target.parent.children[1].attrs.id
       if (stickyId) {
         this.deleteSticky(stickyId)
       }
     },
     addSticky() {
       // don't let the x and y axis extend over the set width and height of the screen
-      const x = Math.min(
-        Math.max(Math.random() * (width - 300), 0),
-        width - 300
-      )
-      const y = Math.min(
-        Math.max(Math.random() * (height - 300), 0),
-        height - 300
-      )
+      const x = 400
+      const y = 300
 
       this.stickies.push({
         id: Math.floor(Math.random().toFixed(2) * 100).toString(),
@@ -115,8 +109,8 @@ export default {
       localStorage.setItem('stickies', JSON.stringify(this.stickies))
     },
     deleteSticky(stickyId) {
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Delete') {
+      window.addEventListener('keydown', (evt) => {
+        if (evt.key === 'Delete') {
           console.log('event trigged')
           this.stickies.map((item) => {
             if (item.id === stickyId) {
@@ -181,21 +175,16 @@ export default {
       })
     },
     handleDragStart(evt) {
-      // this.stickies.map((item) => {
-      //   if (item.id === evt.target.children[1].attrs.id) {
-      //     this.dragItemId = item.id
-      //    console.log(this.dragItemId)
-      //   }
-      // })
       this.dragItemId = evt.target.children[1].attrs.id
-      // const item = this.stickies.find((item) => item.id === this.dragItemId)
-      // console.log(item)
-      // const index = this.stickies.indexOf(item)
-      // console.log(index)
+      const item = this.stickies.find((i) => i.id === this.dragItemId)
+      const index = this.stickies.indexOf(item)
+      this.stickies.splice(index, 1)
+      this.stickies.push(item)
+      localStorage.setItem('stickies', JSON.stringify(this.stickies))
     },
     // eslint-disable-next-line
     handleDragEnd(evt) {
-      // this.dragItemId = null
+      this.dragItemId = null
     },
   },
 }

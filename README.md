@@ -6,6 +6,8 @@ A scrum board (inspiration from Miro) to work with stickies.
 ## Badges
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
 
+![Codecov](https://img.shields.io/codecov/c/github/lauragift21/stickie-app)
+
 ## Demo
 
 [Demo](https://stickie-app.netlify.app/)
