@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/vue'
-import Guide from '../../src/components/Guide.vue'
+import Guide from '../../src/components/Guide'
 
 describe('Guide component', () => {
   it('renders a text in the component', () => {

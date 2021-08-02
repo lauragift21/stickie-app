@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`generate random color should return a snapshot 1`] = `"#914EC3"`;
-
-exports[`test random color generator function should return a color 1`] = `"#99DA39"`;
-
-exports[`test random color generator function should return a snapshot 1`] = `"#930D10"`;

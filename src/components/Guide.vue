@@ -1,5 +1,21 @@
 <template>
-  <div class="w-2/6 h-60 mt-2 py-4 shadow-2xl border border-1 bg-white">
+  <div
+    class="
+      w-2/6
+      h-60
+      mt-2
+      mx-2
+      py-4
+      shadow-2xl
+      border border-1
+      bg-blue-800
+      rounded-xl
+      text-white
+      absolute
+      bottom-0
+      left-0
+    "
+  >
     <h1 class="text-xl px-4 font-bold mb-2">Sticky App Instructions</h1>
     <p class="text-xl px-4">
       <span class="text-xl font-bold">✨</span> Use the plus icon on the top to
@@ -14,7 +30,7 @@
       it and use the enter key to save when done editing.
     </p>
     <p class="text-xl px-4">
-      <span class="text-xl font-bold">✨</span> Stack a sticky on top of another
+      <span class="text-xl font-bold">✨</span> Use can stack a sticky on top of another
     </p>
   </div>
 </template>

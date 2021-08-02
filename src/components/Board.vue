@@ -67,7 +67,7 @@
 <script>
 import { randomColorGenerator } from '../utils'
 const width = window.innerWidth
-const height = window.innerHeight - 300
+const height = window.innerHeight
 let layer
 let stage
 
@@ -96,8 +96,8 @@ export default {
     },
     addSticky() {
       // don't let the x and y axis extend over the set width and height of the screen
-      const x = 400
-      const y = 300
+      const x = 800 + this.stickies.length * 10
+      const y = 200 + this.stickies.length * 10
 
       this.stickies.push({
         id: Math.floor(Math.random().toFixed(2) * 100).toString(),
@@ -174,17 +174,20 @@ export default {
         }
       })
     },
+    // eslint-disable-next-line
     handleDragStart(evt) {
+      this.dragItemId = null
+    },
+    handleDragEnd(evt) {
       this.dragItemId = evt.target.children[1].attrs.id
       const item = this.stickies.find((i) => i.id === this.dragItemId)
-      const index = this.stickies.indexOf(item)
-      this.stickies.splice(index, 1)
-      this.stickies.push(item)
-      localStorage.setItem('stickies', JSON.stringify(this.stickies))
-    },
-    // eslint-disable-next-line
-    handleDragEnd(evt) {
-      this.dragItemId = null
+      // const newX = evt.target.x()
+      // const newY = evt.target.y()
+      console.log(item.x, item.y)
+      // console.log(`dragging...: ${newX}, ${newY}`)
+      // item.x = newX
+      // item.y = newY
+      // localStorage.setItem('stickies', JSON.stringify(this.stickies))
     },
   },
 }

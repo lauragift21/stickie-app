@@ -1,9 +1,8 @@
-import { render, screen } from '@testing-library/vue'
 import { randomColorGenerator } from '../../src/utils/index.js'
 
 describe('generate random color', () => {
-  it('should return a snapshot', () => {
+  it('should return a color', () => {
     const color = randomColorGenerator()
-    expect(color).toMatchSnapshot()
+    expect(color).toBeDefined()
   })
 })
