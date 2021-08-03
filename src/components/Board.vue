@@ -110,7 +110,11 @@ export default {
       window.addEventListener('keydown', (evt) => {
         if (evt.key === 'Delete') {
           console.log('event trigged')
-          this.stickies.splice(this.stickies.findIndex(item => item.id === stickyId), 1)
+          this.stickies.map((item) => {
+            if (item.id === stickyId) {
+              this.stickies.splice(this.stickies.indexOf(item), 1)
+            }
+          })
         }
       })
     },
